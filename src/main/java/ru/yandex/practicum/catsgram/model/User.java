@@ -1,4 +1,4 @@
-package model;
+package ru.yandex.practicum.catsgram.model;
 
 import lombok.Data;
 

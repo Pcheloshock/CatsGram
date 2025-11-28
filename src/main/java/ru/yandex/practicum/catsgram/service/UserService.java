@@ -1,9 +1,10 @@
-package service;
+package ru.yandex.practicum.catsgram.service;
 
 import org.springframework.stereotype.Service;
 import ru.yandex.practicum.catsgram.exception.ConditionsNotMetException;
 import ru.yandex.practicum.catsgram.exception.NotFoundException;
 import ru.yandex.practicum.catsgram.model.User;
+
 
 import java.time.Instant;
 import java.util.Collection;

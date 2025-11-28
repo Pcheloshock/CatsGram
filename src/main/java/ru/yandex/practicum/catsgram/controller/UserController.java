@@ -1,4 +1,4 @@
-package controller;
+package ru.yandex.practicum.catsgram.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
