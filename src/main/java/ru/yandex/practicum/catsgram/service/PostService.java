@@ -19,10 +19,15 @@ public class PostService {
     private final Comparator<Post> postDateComparator = Comparator.comparing(Post::getPostDate);
 
     public Collection<Post> findAll(SortOrder sort, int from, int size) {
-        return posts.values()
+        // Сортируем посты в зависимости от направления сортировки
+        List<Post> sortedPosts = posts.values()
                 .stream()
                 .sorted(sort.equals(SortOrder.ASCENDING) ?
                         postDateComparator : postDateComparator.reversed())
+                .toList();
+
+        // Применяем пагинацию
+        return sortedPosts.stream()
                 .skip(from)
                 .limit(size)
                 .toList();

@@ -1,5 +1,6 @@
 package ru.yandex.practicum.catsgram.controller;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import ru.yandex.practicum.catsgram.model.Post;
@@ -11,18 +12,24 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/posts")
+@RequiredArgsConstructor
 public class PostController {
     private final PostService postService;
 
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
-
     @GetMapping
-    public Collection<Post> findAll(@RequestParam(defaultValue = "desc") String sort,
-                                    @RequestParam(defaultValue = "0") int from,
-                                    @RequestParam(defaultValue = "10") int size) {
-        return postService.findAll(SortOrder.from(sort), from, size);
+    public Collection<Post> findAll(
+            @RequestParam(defaultValue = "desc") String sort,
+            @RequestParam(defaultValue = "0") int from,
+            @RequestParam(defaultValue = "10") int size) {
+
+        // Преобразуем строку в SortOrder
+        SortOrder sortOrder = SortOrder.from(sort);
+        if (sortOrder == null) {
+            // Если преобразование не удалось, используем значение по умолчанию
+            sortOrder = SortOrder.DESCENDING;
+        }
+
+        return postService.findAll(sortOrder, from, size);
     }
 
     @GetMapping("/{postId}")
